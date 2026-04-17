@@ -1,16 +1,40 @@
-# This is a sample Python script.
-
-# Press Ctrl+F5 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import os
+from tarefas import adicionar_tarefa, listar_tarefa, atualizar_status, carregar_dados
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press F9 to toggle the breakpoint.
+def limpar():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
-# Press the green button in the gutter to run the script.
+def main():
+    while True:
+        carregar_dados()
+
+        try:
+            print("\n1 - Adicionar tarefa")
+            print("2 - Listar tarefa")
+            print("3 - Atualizar status")
+            print("4 - Sair")
+
+            opcao = int(input("Digite a opção desejada: "))
+
+            limpar()
+
+            match opcao:
+                case 1:
+                    adicionar_tarefa()
+                case 2:
+                    listar_tarefa()
+                case 3:
+                    atualizar_status()
+                case 4:
+                    print("Saindo...")
+                    break
+                case _:
+                    print("❗Opção inválida")
+        except ValueError:
+            print("\n ⚠️ Digite uma opção válida.")
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
