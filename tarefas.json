@@ -12,9 +12,10 @@
         "Concluida": false
     },
     {
-        "Tarefa": "Voltar a treinar",
-        "Descricao": "voltar a jogar basquete e exercitar",
-        "Data": "17/04/2026 20:14",
-        "Concluida": false
+        "Tarefa": "Estudar C#",
+        "Descricao": "estudar heran\u00e7a e polimorfismo, al\u00e9m de generic e lambda",
+        "Data": "22/04/2026 19:17",
+        "Concluida": false,
+        "Nome": "Estudar"
     }
 ]

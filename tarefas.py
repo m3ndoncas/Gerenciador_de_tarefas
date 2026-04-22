@@ -10,13 +10,13 @@ def salvar_dados():
 
 
 def carregar_dados():
-    global tarefas #torna tarefas global
+    global tarefas  # torna tarefas global
 
     try:
         with open('tarefas.json', 'r') as tarefas_file:
             tarefas = json.load(tarefas_file)
             return tarefas
-    except (FileNotFoundError, json.JSONDecodeError): #trata erro de json vazio
+    except (FileNotFoundError, json.JSONDecodeError):  # trata erro de json vazio
         tarefas = []
 
 
@@ -47,26 +47,84 @@ def listar_tarefa():
         if tarefa["Concluida"] == False:
             print(f"\nTarefa {i + 1}:")
             print("Nome: ", tarefa["Tarefa"])
-            print("Descrição: ",tarefa["Descricao"])
-            print("Data criação: ", tarefa["Data"])
+            print("Descrição: ", tarefa["Descricao"])
+            print("Data: ", tarefa["Data"])
             print("Status: 🕒 - Em aberto.")
         else:
-            print("\nTarefa: ", tarefa["Tarefa"])
+            print(f"\nTarefa {i + 1}:")
+            print("\nNome: ", tarefa["Tarefa"])
             print("Descrição: ", tarefa["Descricao"])
-            print("Data criação: ", tarefa["Data"])
+            print("Data: ", tarefa["Data"])
             print("✅- Concluido.")
 
 
 def atualizar_status():
-    buscar_tarefa = input('Qual tarefa deseja tarefa atualizar(digite o nome)?: ').capitalize().strip()
+    print("\nIndex Tarefas:")
 
-    for tarefa in tarefas:
-        if buscar_tarefa == tarefa["Tarefa"]:
+    for i, tarefa in enumerate(tarefas):
+        print(f"\nTarefa {i} :", tarefa["Tarefa"])
+    try:
+        index = int(input('\nDigite o index da tarefa que deseja atualizar status: '))
+
+        if tarefas[index]["Concluida"] == False:
             tarefa["Concluida"] = True
             tarefa["Data"] = date()
-            print("Data de finalização: ", tarefa["Data"])
+            print("Data de atualização: ", tarefa["Data"])
+            salvar_dados()
+        else:
+            tarefa["Concluida"] = False
+            print("Data de atualização: ", tarefa["Data"])
             salvar_dados()
 
+    except IndexError:
+        print("Tarefa inexistente!")
 
 
 
+def editar_tarefa():
+    print("\nIndex Tarefas:")
+
+    for i, tarefa in enumerate(tarefas):
+        print(f"\nTarefa {i} :", tarefa["Tarefa"])
+
+    while True:
+        try:
+            index = int(input('\nDigite o index da tarefa que deseja editar: '))
+            print(f"\nOque deseja editar:")
+            print("1- Nome")
+            print("2- Descricao")
+
+            opcao = int(input("Digite a opção desejada: "))
+            match opcao:
+                case 1:
+                    novo_nome = input("Digite o novo nome da tarefa: ")
+                    tarefas[index]["Tarefa"] = novo_nome
+                    salvar_dados()
+                    print("Salvo com sucesso!")
+                    break
+                case 2:
+                    nova_descricao = input("Digite a nova descrição da tarefa: ")
+                    tarefas[index]["Descricao"] = nova_descricao
+                    salvar_dados()
+                    print("Salvo com sucesso!")
+                    break
+                case _:
+                    print("Opção inválida!")
+        except (IndexError, ValueError):
+            print("Tarefa inexistente ou valor não esperado!")
+
+
+
+def deletar_tarefa():
+    print("\nIndex Tarefas:")
+
+    for i, tarefa in enumerate(tarefas):
+        print(f"\nTarefa {i} :", tarefa["Tarefa"])
+
+    try:
+        index = int(input('\nDigite o index da tarefa que deseja deletar: '))
+        tarefas.pop(index)
+        print("Tarefa removida com sucesso!")
+        salvar_dados()
+    except IndexError:
+        print("Tarefa inexistente!")
