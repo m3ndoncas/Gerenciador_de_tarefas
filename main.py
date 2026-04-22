@@ -39,6 +39,7 @@ def main():
                 case _:
                     print("❗Opção inválida")
         except ValueError:
+            limpar()
             print("\n ⚠️ Digite uma opção válida.")
 
 

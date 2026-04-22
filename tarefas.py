@@ -52,7 +52,7 @@ def listar_tarefa():
             print("Status: 🕒 - Em aberto.")
         else:
             print(f"\nTarefa {i + 1}:")
-            print("\nNome: ", tarefa["Tarefa"])
+            print("Nome: ", tarefa["Tarefa"])
             print("Descrição: ", tarefa["Descricao"])
             print("Data: ", tarefa["Data"])
             print("✅- Concluido.")
